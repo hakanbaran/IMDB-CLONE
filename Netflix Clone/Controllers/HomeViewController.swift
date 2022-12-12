@@ -23,6 +23,10 @@ class HomeViewController: UIViewController {
         
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
+        
+        homeFeedTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,7 +60,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        return 40
     }
     
     
