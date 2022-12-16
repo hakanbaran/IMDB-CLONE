@@ -19,6 +19,7 @@
 		D420CE542946550800293EDB /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE532946550800293EDB /* CollectionViewTableViewCell.swift */; };
 		D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */; };
 		D420CE58294A203300293EDB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE57294A203300293EDB /* APICaller.swift */; };
+		D420CE5A294CAB0A00293EDB /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE59294CAB0A00293EDB /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D420CE532946550800293EDB /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUIView.swift; sourceTree = "<group>"; };
 		D420CE57294A203300293EDB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		D420CE59294CAB0A00293EDB /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		D420CE4E29458C9D00293EDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D420CE59294CAB0A00293EDB /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */,
 				D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */,
 				D420CE06294330C200293EDB /* UpcomingViewController.swift in Sources */,
+				D420CE5A294CAB0A00293EDB /* Movie.swift in Sources */,
 				D420CE04294330AB00293EDB /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
