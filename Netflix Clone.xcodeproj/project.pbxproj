@@ -20,6 +20,7 @@
 		D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */; };
 		D420CE58294A203300293EDB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE57294A203300293EDB /* APICaller.swift */; };
 		D420CE5A294CAB0A00293EDB /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE59294CAB0A00293EDB /* Movie.swift */; };
+		D48BF6EE294CC76800125E7E /* Tv.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BF6ED294CC76800125E7E /* Tv.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUIView.swift; sourceTree = "<group>"; };
 		D420CE57294A203300293EDB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		D420CE59294CAB0A00293EDB /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		D48BF6ED294CC76800125E7E /* Tv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tv.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				D420CE59294CAB0A00293EDB /* Movie.swift */,
+				D48BF6ED294CC76800125E7E /* Tv.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				D420CE542946550800293EDB /* CollectionViewTableViewCell.swift in Sources */,
 				D420CE58294A203300293EDB /* APICaller.swift in Sources */,
 				D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */,
+				D48BF6EE294CC76800125E7E /* Tv.swift in Sources */,
 				D420CE0A294330DE00293EDB /* DownloadsViewController.swift in Sources */,
 				D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */,
 				D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */,

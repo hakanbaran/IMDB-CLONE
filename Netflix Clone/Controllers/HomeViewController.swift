@@ -58,6 +58,8 @@ class HomeViewController: UIViewController {
     }
     
     private func getTrendingMovies() {
+        
+       /*
         APICaller.shared.getTrendingMovies { results in
             switch results {
             case .success(let movies):
@@ -66,6 +68,27 @@ class HomeViewController: UIViewController {
                 print(error)
             }
         }
+        
+        
+        APICaller.shared.getTrendingTv { results in
+            switch results {
+            case .success(let Tv):
+                print(Tv)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        */
+        //APICaller.shared.getUpcomingMovies { _ in
+        //}
+    
+        //APICaller.shared.getPopular { _ in
+        //}
+        
+        //APICaller.shared.getTopRated { _ in
+        //}
+         
     }
     
 }
