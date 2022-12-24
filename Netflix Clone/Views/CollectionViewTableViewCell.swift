@@ -16,12 +16,14 @@ class CollectionViewTableViewCell: UITableViewCell {
         layout.itemSize = CGSize(width: 140, height: 200)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         
         return collectionView
         
         
     }()
+    
+    private var titles: [Title] = [Title]()
 
     static let identifier = "CollectionViewTableViewCell"
     
@@ -43,19 +45,38 @@ class CollectionViewTableViewCell: UITableViewCell {
         collectinView.frame = contentView.bounds
     }
     
+    public func configure(with titles: [Title]) {
+        self.titles = titles
+        DispatchQueue.main.async { [weak self] in
+            self?.collectinView.reloadData()
+        }
+    }
+    
+    
+    
+    
 }
 
 
 extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .red
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as? TitleCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        guard let model = titles[indexPath.row].poster_path else {
+            return UICollectionViewCell()
+            
+        }
+        cell.configure(with: model)
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return titles.count
         
     }
     
