@@ -12,8 +12,6 @@ struct Constants {
     static let baseURL = "https://api.themoviedb.org"
     static let youtubeAPIKey = "AIzaSyDXg4IMcWkSXkwT5DTWBVI88lv5VIk0Lh8"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
-    
-    //https://youtube.googleapis.com/youtube/v3/search?key=[YOUR_API_KEY]
 }
 
 enum APIError: Error {
@@ -155,7 +153,7 @@ class APICaller {
         
     }
     
-    func getMovietoYoutube(with query: String) {
+    func getMovietoYoutube(with query: String,completion: @escaping (Result<VideoElement, Error>) -> ()) {
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
@@ -165,7 +163,7 @@ class APICaller {
             guard let data = data, error == nil else {return}
             
             do {
-                let results = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+                let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
                 print(results)
             } catch {
                 print(error.localizedDescription)
