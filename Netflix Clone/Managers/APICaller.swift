@@ -8,9 +8,9 @@
 import Foundation
 
 struct Constants {
-    static let APIKey = "3eb740bc8fc93686e023441eb0718ab1"
+    static let APIKey = "key=3eb740bc8fc93686e023441eb0718ab1"
     static let baseURL = "https://api.themoviedb.org"
-    static let youtubeAPIKey = "AIzaSyDXg4IMcWkSXkwT5DTWBVI88lv5VIk0Lh8"
+    static let youtubeAPIKey = "key=AIzaSyDXg4IMcWkSXkwT5DTWBVI88lv5VIk0Lh8"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
@@ -24,7 +24,7 @@ class APICaller {
     
     func getTrendingMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_key=\(Constants.APIKey)") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_\(Constants.APIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -41,7 +41,7 @@ class APICaller {
     
     func getTrendingTv(completion: @escaping (Result<[Title], Error>) -> ()) {
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_key=\(Constants.APIKey)") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_\(Constants.APIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -59,7 +59,7 @@ class APICaller {
     
     func getUpcomingMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/movie/upcoming?api_key=\(Constants.APIKey)&language=en-US&page=1") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/movie/upcoming?api_\(Constants.APIKey)&language=en-US&page=1") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -77,7 +77,7 @@ class APICaller {
     }
     
     func getPopular(completion: @escaping (Result<[Title], Error>) -> ()) {
-        guard let url = URL(string: "\(Constants.baseURL)/3/movie/popular?api_key=\(Constants.APIKey)&language=en-US&page=1") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/movie/popular?api_\(Constants.APIKey)&language=en-US&page=1") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -94,7 +94,7 @@ class APICaller {
     }
     
     func getTopRated(completion: @escaping (Result<[Title], Error>) -> ()) {
-        guard let url = URL(string: "\(Constants.baseURL)/3/movie/top_rated?api_key=\(Constants.APIKey)&language=en-US&page=1") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/movie/top_rated?api_\(Constants.APIKey)&language=en-US&page=1") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -113,7 +113,7 @@ class APICaller {
     func getDiscoverMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
         
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_key=\(Constants.APIKey)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_\(Constants.APIKey)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
@@ -134,7 +134,7 @@ class APICaller {
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/search/movie?api_key=\(Constants.APIKey)&query=\(query)") else {
+        guard let url = URL(string: "\(Constants.baseURL)/3/search/movie?api_\(Constants.APIKey)&query=\(query)") else {
             return
         }
         
@@ -157,7 +157,7 @@ class APICaller {
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
-        guard let url = URL(string: "\(Constants.youtubeBaseURL)q=\(query)&key=\(Constants.youtubeAPIKey)") else {return}
+        guard let url = URL(string: "\(Constants.youtubeBaseURL)q=\(query)&\(Constants.youtubeAPIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
