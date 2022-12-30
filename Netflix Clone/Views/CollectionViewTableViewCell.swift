@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CollectionViewTableViewCellDelegate : AnyObject {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel)
+}
+
 class CollectionViewTableViewCell: UITableViewCell {
     
     private let collectinView : UICollectionView = {
@@ -24,6 +28,8 @@ class CollectionViewTableViewCell: UITableViewCell {
     }()
     
     private var titles: [Title] = [Title]()
+    
+    weak var delegate: CollectionViewTableViewCellDelegate?
 
     static let identifier = "CollectionViewTableViewCell"
     
@@ -51,9 +57,6 @@ class CollectionViewTableViewCell: UITableViewCell {
             self?.collectinView.reloadData()
         }
     }
-    
-    
-    
     
 }
 
@@ -88,10 +91,22 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
             return
         }
         
-        APICaller.shared.getMovietoYoutube(with: titleName + " trailer") { result in
+        APICaller.shared.getMovietoYoutube(with: titleName + " trailer") { [weak self] result in
             switch result {
+            
             case .success(let videoElement):
-                print(videoElement.id)
+                
+                let title = self?.titles[indexPath.row]
+                guard let titleOverview = title?.overview else {
+                    return
+                }
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview)
+                self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
