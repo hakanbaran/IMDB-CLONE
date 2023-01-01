@@ -30,6 +30,7 @@
 		D48BF800295CB79500125E7E /* TitlePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BF7FF295CB79500125E7E /* TitlePreviewViewController.swift */; };
 		D48BF802295EF1F000125E7E /* TitlePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BF801295EF1F000125E7E /* TitlePreviewViewModel.swift */; };
 		D4EFA5852962356900972AD7 /* HDMovieHellModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4EFA5832962356900972AD7 /* HDMovieHellModel.xcdatamodeld */; };
+		D4EFA58729624EAD00972AD7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EFA58629624EAD00972AD7 /* DataPersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		D48BF7FF295CB79500125E7E /* TitlePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePreviewViewController.swift; sourceTree = "<group>"; };
 		D48BF801295EF1F000125E7E /* TitlePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePreviewViewModel.swift; sourceTree = "<group>"; };
 		D4EFA5842962356900972AD7 /* HDMovieHellModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HDMovieHellModel.xcdatamodel; sourceTree = "<group>"; };
+		D4EFA58629624EAD00972AD7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				D420CE57294A203300293EDB /* APICaller.swift */,
+				D4EFA58629624EAD00972AD7 /* DataPersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				D420CE542946550800293EDB /* CollectionViewTableViewCell.swift in Sources */,
 				D48BF7A9295A4A9A00125E7E /* SearchResultsViewController.swift in Sources */,
 				D420CE58294A203300293EDB /* APICaller.swift in Sources */,
+				D4EFA58729624EAD00972AD7 /* DataPersistenceManager.swift in Sources */,
 				D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */,
 				D420CE0A294330DE00293EDB /* DownloadsViewController.swift in Sources */,
 				D48BF7FE295B90A600125E7E /* YoutubeSearchResponse.swift in Sources */,
