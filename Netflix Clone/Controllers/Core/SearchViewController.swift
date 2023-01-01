@@ -47,9 +47,7 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         
         searchController.searchResultsUpdater = self
-        
     }
-    
     
     private func fetchDiscoverMovies() {
         
@@ -64,8 +62,6 @@ class SearchViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
-        
     }
     
     
@@ -75,7 +71,6 @@ class SearchViewController: UIViewController {
         discoverTable.frame = view.bounds
         
     }
-
 }
 
 extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
@@ -93,9 +88,7 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
         let title = titles[indexPath.row]
         let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown Name", posterURL: title.poster_path ?? "")
         cell.configure(with: model)
-        
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -120,10 +113,7 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
                 print(error.localizedDescription)
             }
         }
-        
     }
-    
-    
 }
 
 extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
@@ -150,11 +140,9 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
                     
                 case .failure(let error):
                     print(error.localizedDescription)
-                    
                 }
             }
         }
-        
     }
     
     func searchResultsViewControllerDidTabItem(_ viewModel: TitlePreviewViewModel) {
@@ -164,8 +152,5 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
             vc.configure(with: viewModel)
             self?.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        
     }
-    
 }
