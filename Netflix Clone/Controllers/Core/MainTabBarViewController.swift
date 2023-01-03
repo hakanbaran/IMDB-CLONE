@@ -28,7 +28,7 @@ class MainTabBarViewController: UITabBarController {
         
         homeVC.title = "Home"
         upcomingVC.title = "Coming Soon"
-        searchVC.title = "Top Search"
+        searchVC.title = "Search"
         downloadsVC.title = "Downloads"
         
         
