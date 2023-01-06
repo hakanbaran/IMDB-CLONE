@@ -24,7 +24,6 @@ class CollectionViewTableViewCell: UITableViewCell {
         
         return collectionView
         
-        
     }()
     
     private var titles: [Title] = [Title]()
@@ -38,6 +37,8 @@ class CollectionViewTableViewCell: UITableViewCell {
         contentView.backgroundColor = .orange
         contentView.addSubview(collectinView)
         
+        
+        
         collectinView.delegate = self
         collectinView.dataSource = self
     }
@@ -49,6 +50,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         collectinView.frame = contentView.bounds
+        
     }
     
     public func configure(with titles: [Title]) {

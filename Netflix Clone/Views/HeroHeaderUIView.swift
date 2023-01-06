@@ -45,6 +45,7 @@ class HeroHeaderUIView: UIView {
         imageView.image = UIImage(named: "duneWallpaper")
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
         
         return imageView
         

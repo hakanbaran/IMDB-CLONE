@@ -44,6 +44,8 @@ class HomeViewController: UIViewController {
         homeFeedTable.tableHeaderView = headerView
         
         configureHeroHeaderView()
+        
+        homeFeedTable.separatorStyle = .none
                 
     }
     

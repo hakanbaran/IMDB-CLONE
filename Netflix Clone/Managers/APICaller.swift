@@ -12,6 +12,7 @@ struct Constants {
     static let baseURL = "https://api.themoviedb.org"
     static let youtubeAPIKey = "key=AIzaSyDXg4IMcWkSXkwT5DTWBVI88lv5VIk0Lh8"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
+    
 }
 
 enum APIError: Error {
@@ -137,10 +138,8 @@ class APICaller {
         guard let url = URL(string: "\(Constants.baseURL)/3/search/movie?api_\(Constants.APIKey)&query=\(query)") else {
             return
         }
-        
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))

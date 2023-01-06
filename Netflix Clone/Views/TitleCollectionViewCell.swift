@@ -15,6 +15,10 @@ class TitleCollectionViewCell: UICollectionViewCell {
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 25
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.clipsToBounds = true
         return imageView
     
     }()
@@ -22,6 +26,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(posterImageView)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -31,9 +36,12 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.frame = contentView.bounds
+        
+        
     }
     
     public func configure(with model : String) {
+        
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model)") else {return}
         posterImageView.sd_setImage(with: url)
     }
