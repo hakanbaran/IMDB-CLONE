@@ -62,6 +62,8 @@ class APICaller {
         
         guard let url = URL(string: "\(Constants.baseURL)/3/movie/upcoming?api_\(Constants.APIKey)&language=en-US&page=1") else {return}
         
+        
+        
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
             
@@ -157,6 +159,8 @@ class APICaller {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
         guard let url = URL(string: "\(Constants.youtubeBaseURL)q=\(query)&\(Constants.youtubeAPIKey)") else {return}
+        
+        
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}

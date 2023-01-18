@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     private var randomTrendingMovie : Title?
     private var headerView: HeroHeaderUIView?
     
-    let sectionTittle : [String] = ["Trending Movies", "Popular", "Trending TV", "Upcoming Movies", "Top Rate" ]
+    let sectionTittle : [String] = ["Trending Movies", "Trending TV","Popular", "Upcoming Movies", "Top Rate" ]
     
     private let homeFeedTable : UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
         
         configureNavBar()
         
-        headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
+        headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 600))
         homeFeedTable.tableHeaderView = headerView
         
         configureHeroHeaderView()
@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     
     private func configureNavBar() {
         
-        var image = UIImage(named: "netflixLogo")
+        var image = UIImage(systemName: "list.bullet")
         image = image?.withRenderingMode(.alwaysOriginal)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)

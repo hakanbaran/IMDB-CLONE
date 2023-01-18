@@ -32,6 +32,8 @@ class TitleTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor.white.cgColor
         return imageView
     }()
     

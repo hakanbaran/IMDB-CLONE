@@ -15,8 +15,8 @@ class TitleCollectionViewCell: UICollectionViewCell {
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 25
-        imageView.layer.borderWidth = 1
+        imageView.layer.cornerRadius = 15
+        imageView.layer.borderWidth = 0.5
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.clipsToBounds = true
         return imageView
