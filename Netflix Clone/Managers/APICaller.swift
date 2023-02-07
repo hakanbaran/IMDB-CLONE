@@ -10,9 +10,8 @@ import Foundation
 struct Constants {
     static let APIKey = "key=3eb740bc8fc93686e023441eb0718ab1"
     static let baseURL = "https://api.themoviedb.org"
-    static let youtubeAPIKey = "key=AIzaSyDXg4IMcWkSXkwT5DTWBVI88lv5VIk0Lh8"
+    static let youtubeAPIKey = "key=AIzaSyCSz4xq9hqDGgnaKDdUDtR970_jh6P08j8"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
-    
 }
 
 enum APIError: Error {
@@ -24,7 +23,6 @@ class APICaller {
     static let shared = APICaller()
     
     func getTrendingMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
-        
         guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_\(Constants.APIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
@@ -41,7 +39,6 @@ class APICaller {
     }
     
     func getTrendingTv(completion: @escaping (Result<[Title], Error>) -> ()) {
-        
         guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_\(Constants.APIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
@@ -59,14 +56,10 @@ class APICaller {
     }
     
     func getUpcomingMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
-        
         guard let url = URL(string: "\(Constants.baseURL)/3/movie/upcoming?api_\(Constants.APIKey)&language=en-US&page=1") else {return}
-        
-        
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
@@ -74,9 +67,7 @@ class APICaller {
                 completion(.failure(APIError.failedTogetData))
             }
         }
-                
         task.resume()
-        
     }
     
     func getPopular(completion: @escaping (Result<[Title], Error>) -> ()) {
@@ -84,7 +75,6 @@ class APICaller {
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
@@ -101,11 +91,9 @@ class APICaller {
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
-
             } catch {
                 completion(.failure(APIError.failedTogetData))
             }
@@ -115,16 +103,13 @@ class APICaller {
     
     func getDiscoverMovies(completion: @escaping (Result<[Title], Error>) -> ()) {
         
-        
         guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_\(Constants.APIKey)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
-
             } catch {
                 completion(.failure(APIError.failedTogetData))
             }
@@ -145,13 +130,11 @@ class APICaller {
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
-
             } catch {
                 completion(.failure(APIError.failedTogetData))
             }
         }
         task.resume()
-        
     }
     
     func getMovietoYoutube(with query: String,completion: @escaping (Result<VideoElement, Error>) -> ()) {
@@ -160,11 +143,8 @@ class APICaller {
         
         guard let url = URL(string: "\(Constants.youtubeBaseURL)q=\(query)&\(Constants.youtubeAPIKey)") else {return}
         
-        
-        
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}
-            
             do {
                 let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
                 completion(.success(results.items[0]))
@@ -175,9 +155,5 @@ class APICaller {
             }
         }
         task.resume()
-        
     }
-    
-    
-    
 }
