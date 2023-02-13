@@ -110,9 +110,6 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         
         switch indexPath.section {
-            
-            
-            
         case Sections.TrendindMovies.rawValue:
             
             APICaller.shared.getTrendingMovies { result in

@@ -11,7 +11,7 @@ class DownloadsViewController: UIViewController {
     
     private var titles: [TitleItem] =  [TitleItem]()
     
-    private let upcomingDownloaded : UITableView = {
+    private let downloadedTable : UITableView = {
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
@@ -23,19 +23,44 @@ class DownloadsViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         title = "Downloads"
+        view.addSubview(downloadedTable)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
-        upcomingDownloaded.delegate = self
-        upcomingDownloaded.dataSource = self
+        downloadedTable.delegate = self
+        downloadedTable.dataSource = self
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchLocalStorageForDownload()
     }
     
     private func fetchLocalStorageForDownload() {
         
+        DataPersistenceManager.shared.fetchingTitlesFromDataBase { result in
+            switch result {
+            case .success(let titles):
+                self.titles = titles
+                
+                DispatchQueue.main.async {
+                    self.downloadedTable.reloadData()
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        downloadedTable.frame = view.bounds
+    }
     
-
+    
 }
 
 extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
@@ -55,6 +80,31 @@ extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        switch editingStyle {
+            
+        case .delete:
+            
+            DataPersistenceManager.shared.deleteTitleWith(model: titles[indexPath.row]) { result in
+                switch result {
+                case .success():
+                    print("Delete from the Database")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                self.titles.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        default:
+            break;
+            
+            
+        }
+        
     }
     
     
