@@ -20,6 +20,7 @@
 		D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */; };
 		D420CE58294A203300293EDB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE57294A203300293EDB /* APICaller.swift */; };
 		D420CE5A294CAB0A00293EDB /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CE59294CAB0A00293EDB /* Title.swift */; };
+		D4606335299C3C120016E632 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4606334299C3C120016E632 /* SnapKit */; };
 		D48BF6F1294E576E00125E7E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = D48BF6F0294E576E00125E7E /* SDWebImage */; };
 		D48BF6F3294E576E00125E7E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D48BF6F2294E576E00125E7E /* SDWebImageMapKit */; };
 		D48BF6F629524BE500125E7E /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BF6F529524BE500125E7E /* TitleCollectionViewCell.swift */; };
@@ -65,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4606335299C3C120016E632 /* SnapKit in Frameworks */,
 				D48BF6F3294E576E00125E7E /* SDWebImageMapKit in Frameworks */,
 				D48BF6F1294E576E00125E7E /* SDWebImage in Frameworks */,
 			);
@@ -202,6 +204,7 @@
 			packageProductDependencies = (
 				D48BF6F0294E576E00125E7E /* SDWebImage */,
 				D48BF6F2294E576E00125E7E /* SDWebImageMapKit */,
+				D4606334299C3C120016E632 /* SnapKit */,
 			);
 			productName = "Netflix Clone";
 			productReference = D420CDE429432C1A00293EDB /* Netflix Clone.app */;
@@ -233,6 +236,7 @@
 			mainGroup = D420CDDB29432C1A00293EDB;
 			packageReferences = (
 				D48BF6EF294E576E00125E7E /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = D420CDE529432C1A00293EDB /* Products */;
 			projectDirPath = "";
@@ -491,6 +495,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 		D48BF6EF294E576E00125E7E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -502,6 +514,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D4606334299C3C120016E632 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		D48BF6F0294E576E00125E7E /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D48BF6EF294E576E00125E7E /* XCRemoteSwiftPackageReference "SDWebImage" */;

@@ -120,7 +120,9 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
                     return
                 }
                 
-                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview)
+                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview, moviePoster: title?.poster_path ?? "")
+//                print( "hakan" , title?.poster_path)
+                
                 self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
                 
             case .failure(let error):

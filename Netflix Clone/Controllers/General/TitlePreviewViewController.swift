@@ -7,8 +7,14 @@
 
 import UIKit
 import WebKit
+import SnapKit
+import SDWebImage
 
 class TitlePreviewViewController: UIViewController {
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    
     
     private let titleLabel : UILabel = {
         
@@ -17,6 +23,19 @@ class TitlePreviewViewController: UIViewController {
         label.text = "Harry potter"
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
+    }()
+    
+    private let moviePosterView: UIImageView = {
+        
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.image = UIImage(named: "duneWallpaper")
+        return imageView
     }()
     
     private let overviewLabel: UILabel = {
@@ -28,16 +47,7 @@ class TitlePreviewViewController: UIViewController {
         return label
     }()
     
-    private let downloadButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .red
-        button.setTitle("Download", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.layer.masksToBounds = true
-        return button
-    }()
+    
     
     private let webView: WKWebView = {
        let webView = WKWebView()
@@ -46,52 +56,94 @@ class TitlePreviewViewController: UIViewController {
         
     }()
     
+    private let userScoreLabel : UILabel = {
+        
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private let userScoreCirle  = {
+        
+        let roundView = UIView(frame: CGRectMake(310, 380, 60, 60))
+        roundView.backgroundColor    = UIColor.systemBackground
+        roundView.layer.cornerRadius = roundView.frame.width / 2
+        return roundView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         
-        view.addSubview(webView)
-        view.addSubview(titleLabel)
-        view.addSubview(overviewLabel)
-        view.addSubview(downloadButton)
+        
+        
+        
+        
+        let views = [titleLabel, overviewLabel, webView, moviePosterView, userScoreCirle]
+        views.forEach { view.addSubview($0) }
+
+        userScoreCirle.addSubview(userScoreLabel)
         
         configureConstraints()
+
+        
         
     }
+    
+//    func setupScrollView() {
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//    }
+    
+    
+    
+    
     
     func configureConstraints() {
         
         let webViewConstraints = [
-            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.heightAnchor.constraint(equalToConstant: 300)
         ]
         
+
+        
+        let moviePosterConstraints = [
+            moviePosterView.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
+            moviePosterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            moviePosterView.heightAnchor.constraint(equalToConstant: 140),
+            moviePosterView.widthAnchor.constraint(equalToConstant: 98)
+        ]
+        
         let titleLabelConstraints = [
         
-            titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+            titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            
         ]
         
         let overViewLabelConstraints = [
-            overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            overviewLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 20),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         
-        let downloadButtonConstraints = [
-            downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downloadButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 25),
-            downloadButton.widthAnchor.constraint(equalToConstant: 140),
-            downloadButton.heightAnchor.constraint(equalToConstant: 40)
-        ]
+        
+        userScoreLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(40)
+        }
         
         NSLayoutConstraint.activate(webViewConstraints)
+        NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
-        NSLayoutConstraint.activate(downloadButtonConstraints)
+        
+        
         
     }
     
@@ -103,8 +155,12 @@ class TitlePreviewViewController: UIViewController {
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeView.id.videoId)") else {
             return
         }
-        
         webView.load(URLRequest(url: url))
+        
+        
+        guard let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(model.moviePoster)") else {return}
+        
+        moviePosterView.sd_setImage(with: posterURL)
         
     }
     
