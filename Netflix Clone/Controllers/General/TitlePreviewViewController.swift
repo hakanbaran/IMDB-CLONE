@@ -21,13 +21,25 @@ class TitlePreviewViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Harry potter"
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
         return label
     }()
     
-    private let moviePosterView: UIImageView = {
+    private let dateLabel : UILabel = {
         
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Hayri Pıtır"
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        
+        return label
+        
+        
+    }()
+    
+    private let moviePosterView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -48,13 +60,10 @@ class TitlePreviewViewController: UIViewController {
         return label
     }()
     
-    
-    
     private let webView: WKWebView = {
        let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
-        
     }()
     
     private let userScoreLabel : UILabel = {
@@ -78,56 +87,71 @@ class TitlePreviewViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
+        scrollView.frame = view.bounds
         
-        let views = [titleLabel, overviewLabel, webView, moviePosterView, userScoreCirle]
-        views.forEach { view.addSubview($0) }
+        
+        let views = [titleLabel,dateLabel, overviewLabel, webView, moviePosterView, userScoreCirle]
+        views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
         
         configureConstraints()
+        setupScrollView()
 
-        
-        
     }
     
-//    func setupScrollView() {
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//    }
+    func setupScrollView(){
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(scrollView)
+            scrollView.addSubview(contentView)
+            
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        }
     
-    
-    
-    
-    
+
     func configureConstraints() {
         
         let webViewConstraints = [
-            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            webView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             webView.heightAnchor.constraint(equalToConstant: 300)
         ]
         
-
-        
         let moviePosterConstraints = [
             moviePosterView.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
-            moviePosterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            moviePosterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             moviePosterView.heightAnchor.constraint(equalToConstant: 140),
             moviePosterView.widthAnchor.constraint(equalToConstant: 98)
         ]
         
         let titleLabelConstraints = [
-        
             titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ]
+        
+        let dateLabelConstraints = [
+            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            dateLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
             
+        
         ]
         
         let overViewLabelConstraints = [
             overviewLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 20),
-            overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
         ]
         
         
@@ -139,20 +163,25 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
+        NSLayoutConstraint.activate(dateLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         
     }
-    
     
     func configure(with model: TitlePreviewViewModel) {
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview
         
+        let date = model.release_date
+        let index = date.firstIndex(of: "-") ?? date.endIndex
+        let year = date[..<index]
+        
+        dateLabel.text = "Release Date: \(year)"
+        
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeView.id.videoId)") else {
             return
         }
         webView.load(URLRequest(url: url))
-        
         
         guard let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(model.moviePoster)") else {return}
         

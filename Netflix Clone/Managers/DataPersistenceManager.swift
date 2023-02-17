@@ -37,7 +37,7 @@ class DataPersistenceManager {
         item.overview = model.overview
         item.media_type = model.media_type
         item.poster_path = model.poster_path
-        item.release_data = model.release_data
+        item.release_data = model.release_date
         item.vote_average = model.vote_average
         
         do {

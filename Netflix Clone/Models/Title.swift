@@ -20,6 +20,7 @@ struct Title: Codable {
     let original_title : String?
     let poster_path : String?
     let overview : String?
-    let release_data : String?
+    let release_date : String?
+    let first_air_date : String?
     let vote_average : Double
 }
