@@ -79,7 +79,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
             switch result {
             case .success(let videoElement):
                 
-                self?.delegate?.searchResultsViewControllerDidTabItem(TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: title.overview ?? "", moviePoster: title.poster_path ?? ""))
+                self?.delegate?.searchResultsViewControllerDidTabItem(TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: title.overview ?? "", moviePoster: title.poster_path ?? "", vote_average: title.vote_average))
                 
             case .failure(let error):
                 print(error.localizedDescription)

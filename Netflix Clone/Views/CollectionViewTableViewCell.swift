@@ -120,8 +120,8 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
                     return
                 }
                 
-                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview, moviePoster: title?.poster_path ?? "")
-//                print( "hakan" , title?.poster_path)
+                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview, moviePoster: title?.poster_path ?? "", vote_average: title?.vote_average ?? 0)
+
                 
                 self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
                 

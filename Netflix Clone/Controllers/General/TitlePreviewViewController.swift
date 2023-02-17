@@ -22,6 +22,7 @@ class TitlePreviewViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Harry potter"
         label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -76,9 +77,6 @@ class TitlePreviewViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        
-        
-        
         
         
         let views = [titleLabel, overviewLabel, webView, moviePosterView, userScoreCirle]
@@ -143,8 +141,6 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         
-        
-        
     }
     
     
@@ -162,7 +158,38 @@ class TitlePreviewViewController: UIViewController {
         
         moviePosterView.sd_setImage(with: posterURL)
         
+        configureScoreLabel(with: model)
     }
+    
+    private func configureScoreLabel(with model: TitlePreviewViewModel) {
+        
+        let score = Int(model.vote_average * 10)
+        let percentageScore = model.vote_average / 10
+        userScoreLabel.text = "\(score)%"
+        configureCircleStroke(with: percentageScore)
+        
+    }
+    
+    private func configureCircleStroke(with score: Double) {
+        
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: userScoreCirle.frame.width / 2, y: userScoreCirle.frame.width / 2),
+                                     radius: userScoreCirle.frame.width / 2,
+                                     startAngle: CGFloat(-0.5 * Double.pi),
+                                     endAngle: CGFloat(1.5 * Double.pi),
+                                     clockwise: true)
+        
+        let circleShape         = CAShapeLayer()
+        circleShape.path        = circlePath.cgPath
+        circleShape.strokeColor = UIColor.yellow.cgColor
+        circleShape.fillColor   = UIColor.white.withAlphaComponent(0.00001).cgColor
+        circleShape.lineWidth   = 5
+        circleShape.strokeStart = 0.0
+        circleShape.strokeEnd   = score
+        userScoreCirle.layer.addSublayer(circleShape)
+        
+        
+    }
+    
     
     
 }
