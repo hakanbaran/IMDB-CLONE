@@ -143,8 +143,6 @@ class TitlePreviewViewController: UIViewController {
         let dateLabelConstraints = [
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             dateLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
-            
-        
         ]
         
         let overViewLabelConstraints = [
