@@ -182,7 +182,6 @@ class TitlePreviewViewController: UIViewController {
         webView.load(URLRequest(url: url))
         
         guard let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(model.moviePoster)") else {return}
-        
         moviePosterView.sd_setImage(with: posterURL)
         
         configureScoreLabel(with: model)
@@ -194,7 +193,6 @@ class TitlePreviewViewController: UIViewController {
         let percentageScore = model.vote_average / 10
         userScoreLabel.text = "\(score)%"
         configureCircleStroke(with: percentageScore)
-        
     }
     
     private func configureCircleStroke(with score: Double) {
@@ -213,10 +211,5 @@ class TitlePreviewViewController: UIViewController {
         circleShape.strokeStart = 0.0
         circleShape.strokeEnd   = score
         userScoreCirle.layer.addSublayer(circleShape)
-        
-        
     }
-    
-    
-    
 }
