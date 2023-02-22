@@ -29,8 +29,6 @@ class DataPersistenceManager {
         
         let item = TitleItem(context: context)
         
-        
-        
         item.original_title = model.original_title
         item.id = Int64(model.id)
         item.original_name = model.original_name
@@ -39,6 +37,28 @@ class DataPersistenceManager {
         item.poster_path = model.poster_path
         item.release_data = model.release_date
         item.vote_average = model.vote_average
+        
+        do {
+            try context.save()
+            completion(.success(()))
+        }
+        catch {
+            completion(.failure(DatabaseError.failedToSaveData))
+        }
+    }
+    
+    func downloadTitleWith(model: TitlePreviewViewModel, completion: @escaping(Result<Void, Error>) -> ()) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let item = TitleItem(context: context)
+        
+        item.original_title = model.title
+        item.poster_path = model.moviePoster
         
         do {
             try context.save()
@@ -60,13 +80,11 @@ class DataPersistenceManager {
         request = TitleItem.fetchRequest()
         
         do {
-            
             let titles = try context.fetch(request)
             completion(.success(titles))
-        }catch {
+        } catch {
             completion(.failure(DatabaseError.failedToFetchData))
         }
-        
     }
     
     func deleteTitleWith(model: TitleItem, completion: @escaping(Result<Void, Error>) -> Void) {
@@ -84,8 +102,5 @@ class DataPersistenceManager {
         } catch {
             completion(.failure(DatabaseError.failedToDeleteData))
         }
-        
     }
-    
-    
 }

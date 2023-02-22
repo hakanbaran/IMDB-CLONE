@@ -15,6 +15,21 @@ class TitlePreviewViewController: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     
+    var viewModel : TitlePreviewViewModel?
+    
+    private lazy var favoriteButton : UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        button.tintColor = .lightGray
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
+        
+//        button.target(forAction: #selector(addFavoriteClicked), withSender: nil)
+        return button
+        
+    }()
+    
     
     private let titleLabel : UILabel = {
         
@@ -49,6 +64,15 @@ class TitlePreviewViewController: UIViewController {
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.image = UIImage(named: "duneWallpaper")
         return imageView
+    }()
+    
+    private let overviewTitleLabel: UILabel = {
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.text = "Overview"
+        return label
     }()
     
     private let overviewLabel: UILabel = {
@@ -90,7 +114,7 @@ class TitlePreviewViewController: UIViewController {
         scrollView.frame = view.bounds
         
         
-        let views = [titleLabel,dateLabel, overviewLabel, webView, moviePosterView, userScoreCirle]
+        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, moviePosterView, favoriteButton, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
@@ -98,6 +122,26 @@ class TitlePreviewViewController: UIViewController {
         configureConstraints()
         setupScrollView()
 
+    }
+    
+    @objc func addFavoriteClicked() {
+        
+        
+        
+        guard let viewModel = viewModel else {return}
+        
+        DataPersistenceManager.shared.downloadTitleWith(model: viewModel) { result in
+            switch result {
+            case .success():
+                print("Download to Database")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+        
+        
     }
     
     func setupScrollView(){
@@ -145,8 +189,15 @@ class TitlePreviewViewController: UIViewController {
             dateLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
         ]
         
+        let overViewTitleLabelConstraints = [
+            overviewTitleLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor,constant: 20),
+            overviewTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 20)
+        
+        
+        ]
+        
         let overViewLabelConstraints = [
-            overviewLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 20),
+            overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 20),
             overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
@@ -158,15 +209,28 @@ class TitlePreviewViewController: UIViewController {
             make.width.height.equalTo(40)
         }
         
+        
+        let favoriteButtonConstraints = [
+            favoriteButton.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
+            favoriteButton.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10)
+        
+        ]
+        
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(dateLabelConstraints)
+        NSLayoutConstraint.activate(overViewTitleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
+        
+        NSLayoutConstraint.activate(favoriteButtonConstraints)
         
     }
     
     func configure(with model: TitlePreviewViewModel) {
+        
+        self.viewModel = model
+        
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview
         

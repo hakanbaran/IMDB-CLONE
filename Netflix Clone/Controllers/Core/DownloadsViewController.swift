@@ -84,57 +84,30 @@ extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        
+        
+        
         let movieResults = titles[indexPath.row]
-        
-        
-        
-        guard let movieName = movieResults.original_name else {return}
-        guard let moviePoster = movieResults.poster_path else {return}
-        guard let movieDate = movieResults.release_data else {return}
-        guard let movieOverview = movieResults.overview else {return}
-        
+
+        let movieName = movieResults.original_name ?? movieResults.original_title
+        let moviePoster = movieResults.poster_path
+        let movieDate = movieResults.release_data
+        let movieOverview = movieResults.overview
         let movieRating = movieResults.vote_average
         
-        APICaller.shared.getMovietoYoutube(with: movieName + "trailer") { result in
-            
-            switch result {
-            case .success(let videoElement):
-                DispatchQueue.main.async {
-                    let vc = TitlePreviewViewController()
-                    
-                    vc.configure(with: TitlePreviewViewModel(title: movieName, youtubeView: videoElement, titleOverview: movieOverview, moviePoster: moviePoster, vote_average: movieRating, release_date: movieDate))
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-        
-        
-        
-        
-        
-        
-//        guard let movieMedia_Type = movieResults.media_type else {return}
-//        guard let movieName = movieResults.original_name else {return}
-//        guard let movieName = movieResults.original_name else {return}
-//        guard let movieName = movieResults.original_name else {return}
-//        guard let movieName = movieResults.original_name else {return}
-//        guard let movieName = movieResults.original_name else {return}
-//        guard let movieName = movieResults.original_name else {return}
-        
-        /*
-         guard let gameTitle = gameResults?.name else {return}
-         guard let gameDate = gameResults?.released else {return}
-         guard let posterURL = gameResults?.background_image else {return}
-         guard let gameRating = gameResults?.rating else {return}
-         */
-        
-        
-        
-        
+         APICaller.shared.getMovietoYoutube(with: movieName ?? "") { [weak self] result in
+             switch result {
+             case .success(let videoElement):
+                 DispatchQueue.main.async {
+                     let vc = TitlePreviewViewController()
+
+                     vc.configure(with: TitlePreviewViewModel(title: movieName ?? "", youtubeView: videoElement , titleOverview: movieOverview ?? "" , moviePoster: moviePoster ?? "" , vote_average: movieRating, release_date: movieDate ?? "" ))
+                     self?.navigationController?.pushViewController(vc, animated: true)
+                 }
+             case .failure(let error):
+                 print(error.localizedDescription)
+             }
+         }
     }
     
     
