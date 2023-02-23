@@ -132,7 +132,6 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
                 }
             }
         
-            
         case Sections.Popular.rawValue:
             APICaller.shared.getPopular { result in
                 switch result {
@@ -162,12 +161,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
                     print(error.localizedDescription)
                 }
             }
-        
-            
         default:
             return UITableViewCell()
         }
-        
         return cell
     }
     

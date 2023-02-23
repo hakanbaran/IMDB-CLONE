@@ -31,7 +31,6 @@ class UpcomingViewController: UIViewController {
         upcomingTable.dataSource = self
         
         fetchUpcoming()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,10 +51,7 @@ class UpcomingViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
-        
     }
-      
 }
 
 extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -89,14 +85,10 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
                     let vc = TitlePreviewViewController()
                     vc.configure(with: TitlePreviewViewModel(title: titleName, youtubeView: videoElement , titleOverview: title.overview ?? "", moviePoster: title.poster_path ?? "", vote_average: title.vote_average, release_date: title.release_date ?? ""))
                     self?.navigationController?.pushViewController(vc, animated: true)
-                    
-                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-        
     }
-    
 }
