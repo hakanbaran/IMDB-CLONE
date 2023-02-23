@@ -106,7 +106,6 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
             case .success(let videoElement):
                 DispatchQueue.main.async {
                     let vc = TitlePreviewViewController()
-//                    vc.configure(with: TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: title.overview ?? ""))
                     
                     vc.configure(with: TitlePreviewViewModel(title: titleName, youtubeView: videoElement , titleOverview: title.overview ?? "", moviePoster: title.poster_path ?? "", vote_average: title.vote_average, release_date: title.release_date ?? ""))
                     self?.navigationController?.pushViewController(vc, animated: true)

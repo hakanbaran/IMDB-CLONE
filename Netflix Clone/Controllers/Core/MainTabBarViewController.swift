@@ -9,7 +9,6 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
@@ -18,8 +17,6 @@ class MainTabBarViewController: UITabBarController {
         let upcomingVC = UINavigationController(rootViewController: UpcomingViewController())
         let searchVC = UINavigationController(rootViewController: SearchViewController())
         let downloadsVC = UINavigationController(rootViewController: DownloadsViewController())
-        
-        
         
         homeVC.tabBarItem.image = UIImage(systemName: "house")
         upcomingVC.tabBarItem.image = UIImage(systemName: "play.circle")
@@ -31,13 +28,8 @@ class MainTabBarViewController: UITabBarController {
         searchVC.title = "Search"
         downloadsVC.title = "Downloads"
         
-        
         setViewControllers([homeVC, upcomingVC, searchVC, downloadsVC], animated: true)
         
-        
-        
     }
-
-
 }
 

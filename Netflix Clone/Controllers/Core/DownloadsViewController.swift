@@ -28,8 +28,6 @@ class DownloadsViewController: UIViewController {
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         downloadedTable.delegate = self
         downloadedTable.dataSource = self
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,27 +45,22 @@ class DownloadsViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.downloadedTable.reloadData()
                 }
-                
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
     
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         downloadedTable.frame = view.bounds
     }
-    
-    
 }
 
 extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         titles.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {return UITableViewCell()}
@@ -83,8 +76,6 @@ extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
         
         
         let movieResults = titles[indexPath.row]
