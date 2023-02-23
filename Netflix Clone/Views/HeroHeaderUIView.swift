@@ -33,7 +33,6 @@ class HeroHeaderUIView: UIView {
         button.layer.borderWidth = 0.5
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
-        
         return button
         
     }()
@@ -41,12 +40,10 @@ class HeroHeaderUIView: UIView {
     private let heroImageView : UIImageView = {
         
         let imageView = UIImageView()
-        
         imageView.image = UIImage(named: "duneWallpaper")
         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
-        
         return imageView
         
         

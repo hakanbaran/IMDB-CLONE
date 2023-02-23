@@ -128,8 +128,6 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
     }
     
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
         let config = UIContextMenuConfiguration(actionProvider:  { [weak self] _ in
