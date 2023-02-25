@@ -15,4 +15,5 @@ struct TitlePreviewViewModel {
     let moviePoster: String
     let vote_average: Double
     let release_date: String
+    let media_type: String
 }

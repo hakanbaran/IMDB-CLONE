@@ -104,6 +104,9 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
             return
         }
         
+//        title.media_type
+        
+        
         APICaller.shared.getMovietoYoutube(with: titleName + " trailer") { [weak self] result in
             switch result {
             
@@ -117,7 +120,7 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
                     return
                 }
                 
-                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview, moviePoster: title?.poster_path ?? "", vote_average: title?.vote_average ?? 0, release_date: title?.release_date ?? title?.first_air_date ?? "")
+                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview, moviePoster: title?.poster_path ?? "", vote_average: title?.vote_average ?? 0, release_date: title?.release_date ?? title?.first_air_date ?? "", media_type: title?.media_type ?? "")
                 
                 self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
                 

@@ -30,6 +30,24 @@ class TitlePreviewViewController: UIViewController {
         
     }()
     
+    private let titleMediaType: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Test"
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.textColor = .lightGray
+        
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 5
+        label.layer.borderColor = UIColor.lightGray.cgColor
+        label.layer.borderWidth = 0.5
+        
+        return label
+    }()
+    
     
     private let titleLabel : UILabel = {
         
@@ -47,7 +65,16 @@ class TitlePreviewViewController: UIViewController {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hayri Pıtır"
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.textColor = .lightGray
+        
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 5
+        label.layer.borderColor = UIColor.lightGray.cgColor
+        label.layer.borderWidth = 0.5
         
         return label
         
@@ -93,14 +120,14 @@ class TitlePreviewViewController: UIViewController {
     private let userScoreLabel : UILabel = {
         
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
         return label
     }()
 
     private let userScoreCirle  = {
         
-        let roundView = UIView(frame: CGRectMake(310, 380, 60, 60))
+        let roundView = UIView(frame: CGRectMake(320, 12, 50, 50))
         roundView.backgroundColor    = UIColor.systemBackground
         roundView.layer.cornerRadius = roundView.frame.width / 2
         return roundView
@@ -109,24 +136,22 @@ class TitlePreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.tintColor = .lightGray
         view.backgroundColor = .systemBackground
         
         scrollView.frame = view.bounds
         
         
-        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, moviePosterView, favoriteButton, userScoreCirle]
+        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, moviePosterView, titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
         
         configureConstraints()
         setupScrollView()
-
     }
     
     @objc func addFavoriteClicked() {
-        
-        
         
         guard let viewModel = viewModel else {return}
         
@@ -138,9 +163,6 @@ class TitlePreviewViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
-        
-        
         
     }
     
@@ -164,11 +186,31 @@ class TitlePreviewViewController: UIViewController {
 
     func configureConstraints() {
         
+        let titleLabelConstraints = [
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ]
+        
+        let movieMediaTypeConstraints = [
+            titleMediaType.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 10),
+            titleMediaType.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            titleMediaType.widthAnchor.constraint(equalToConstant: 80),
+            titleMediaType.heightAnchor.constraint(equalToConstant: 25)
+        ]
+        
+        let dateLabelConstraints = [
+            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            dateLabel.leadingAnchor.constraint(equalTo: titleMediaType.trailingAnchor, constant: 10),
+            dateLabel.widthAnchor.constraint(equalToConstant: 80),
+            dateLabel.heightAnchor.constraint(equalToConstant: 25)
+        ]
+        
         let webViewConstraints = [
-            webView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            webView.topAnchor.constraint(equalTo: titleMediaType.bottomAnchor, constant: 10),
             webView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            webView.heightAnchor.constraint(equalToConstant: 300)
+            webView.heightAnchor.constraint(equalToConstant: 200)
         ]
         
         let moviePosterConstraints = [
@@ -178,16 +220,7 @@ class TitlePreviewViewController: UIViewController {
             moviePosterView.widthAnchor.constraint(equalToConstant: 98)
         ]
         
-        let titleLabelConstraints = [
-            titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
-        ]
         
-        let dateLabelConstraints = [
-            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            dateLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
-        ]
         
         let overViewTitleLabelConstraints = [
             overviewTitleLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor,constant: 20),
@@ -216,6 +249,9 @@ class TitlePreviewViewController: UIViewController {
         
         ]
         
+        
+        
+        
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
@@ -223,7 +259,8 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(overViewTitleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         
-        NSLayoutConstraint.activate(favoriteButtonConstraints)
+//        NSLayoutConstraint.activate(favoriteButtonConstraints)
+        NSLayoutConstraint.activate(movieMediaTypeConstraints)
         
     }
     
@@ -231,14 +268,30 @@ class TitlePreviewViewController: UIViewController {
         
         self.viewModel = model
         
+        title = model.title
+        
+        
+        
+        let upperMediaType = model.media_type.uppercased()
+        
+        if upperMediaType == "TV" {
+            titleMediaType.text = upperMediaType + " Series"
+        } else {
+            titleMediaType.text = upperMediaType
+            
+        }
+        
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview
+        
+        
         
         let date = model.release_date
         let index = date.firstIndex(of: "-") ?? date.endIndex
         let year = date[..<index]
         
-        dateLabel.text = "Release Date: \(year)"
+        dateLabel.text = String(year)
+        
         
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeView.id.videoId)") else {
             return
@@ -255,7 +308,14 @@ class TitlePreviewViewController: UIViewController {
         
         let score = Int(model.vote_average * 10)
         let percentageScore = model.vote_average / 10
-        userScoreLabel.text = "\(score)%"
+//        userScoreLabel.text = "\(score)%"
+        
+        let scoreResult = Double(score / 10)
+        
+        userScoreLabel.text = "\(scoreResult)/10"
+        
+        print(userScoreLabel.text)
+        
         configureCircleStroke(with: percentageScore)
     }
     

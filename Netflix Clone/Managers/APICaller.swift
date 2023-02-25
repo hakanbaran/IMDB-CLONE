@@ -10,9 +10,11 @@ import Foundation
 struct Constants {
     static let APIKey = "key=3eb740bc8fc93686e023441eb0718ab1"
     static let baseURL = "https://api.themoviedb.org"
-    static let youtubeAPIKey = "key=AIzaSyCSz4xq9hqDGgnaKDdUDtR970_jh6P08j8"
+    static let youtubeAPIKey = "key=AIzaSyBVX1W91HJyAk47ER5gIDSLjuckAca9qgs"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
+
+// https://api.themoviedb.org/3 + endpoint.rawValue + APIConstants.apiKey + "&page=\(APIConstants.page)
 
 enum APIError: Error {
     case failedTogetData
@@ -64,6 +66,7 @@ class APICaller {
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
+                
             } catch {
                 completion(.failure(APIError.failedTogetData))
             }
