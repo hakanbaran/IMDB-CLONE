@@ -314,8 +314,6 @@ class TitlePreviewViewController: UIViewController {
         
         userScoreLabel.text = "\(scoreResult)/10"
         
-        print(userScoreLabel.text)
-        
         configureCircleStroke(with: percentageScore)
     }
     
