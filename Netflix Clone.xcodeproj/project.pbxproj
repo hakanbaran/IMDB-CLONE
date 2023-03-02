@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40EDEAF29B0C262003847E0 /* ButtonSembols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */; };
 		D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE729432C1A00293EDB /* AppDelegate.swift */; };
 		D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE929432C1A00293EDB /* SceneDelegate.swift */; };
 		D420CDEC29432C1A00293EDB /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDEB29432C1A00293EDB /* MainTabBarViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSembols.swift; sourceTree = "<group>"; };
 		D420CDE429432C1A00293EDB /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D420CDE729432C1A00293EDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D420CDE929432C1A00293EDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D40EDEAD29B0C249003847E0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D420CDDB29432C1A00293EDB = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 		D420CDE629432C1A00293EDB /* Netflix Clone */ = {
 			isa = PBXGroup;
 			children = (
+				D40EDEAD29B0C249003847E0 /* Helpers */,
 				D420CE5229458D3900293EDB /* Managers */,
 				D420CE5129458D2100293EDB /* Resources */,
 				D420CE4E29458C9D00293EDB /* Models */,
@@ -276,6 +287,7 @@
 				D4EFA58729624EAD00972AD7 /* DataPersistenceManager.swift in Sources */,
 				D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */,
 				D420CE0A294330DE00293EDB /* DownloadsViewController.swift in Sources */,
+				D40EDEAF29B0C262003847E0 /* ButtonSembols.swift in Sources */,
 				D48BF7FE295B90A600125E7E /* YoutubeSearchResponse.swift in Sources */,
 				D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */,
 				D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */,

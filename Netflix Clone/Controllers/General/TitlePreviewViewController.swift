@@ -18,22 +18,23 @@ class TitlePreviewViewController: UIViewController {
     var viewModel : TitlePreviewViewModel?
     
     
-    let favoriteButtonImage = UIImage(systemName: "heart")
     
+//    private let favoriteButton2 =
     
     private lazy var favoriteButton : UIButton = {
-        let button = UIButton()
+        let button = ButtonSembols(symbol: "heart")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(favoriteButtonImage, for: .normal)
+
+        button.clipsToBounds = true
+        button.contentMode = .scaleAspectFill
+
+        button.imageView?.contentMode = .scaleAspectFill
+
         button.tintColor = .lightGray
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
         
-        
-        
-        
-        
-//        button.target(forAction: #selector(addFavoriteClicked), withSender: nil)
+        button.target(forAction: #selector(addFavoriteClicked), withSender: nil)
         return button
         
     }()
@@ -254,8 +255,9 @@ class TitlePreviewViewController: UIViewController {
         
         let favoriteButtonConstraints = [
             favoriteButton.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 10),
-            favoriteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
-
+            favoriteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 25),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 25)
         ]
         
         
