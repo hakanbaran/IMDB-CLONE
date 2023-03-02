@@ -17,26 +17,25 @@ class TitlePreviewViewController: UIViewController {
     
     var viewModel : TitlePreviewViewModel?
     
-    
-    
-//    private let favoriteButton2 =
-    
     private lazy var favoriteButton : UIButton = {
         let button = ButtonSembols(symbol: "heart")
         button.translatesAutoresizingMaskIntoConstraints = false
-
-        button.clipsToBounds = true
-        button.contentMode = .scaleAspectFill
-
-        button.imageView?.contentMode = .scaleAspectFill
-
         button.tintColor = .lightGray
         button.isUserInteractionEnabled = true
-        button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
-        
-        button.target(forAction: #selector(addFavoriteClicked), withSender: nil)
+//        button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
         return button
         
+    }()
+    
+    
+    private lazy var downloadButton : UIButton = {
+        let button = ButtonSembols(symbol: "bookmark")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .lightGray
+        button.isUserInteractionEnabled = true
+//        button.addTarget(self, action: #selector(addDownloadClicked), for: .touchUpInside)
+        return button
+
     }()
     
     private let titleMediaType: UILabel = {
@@ -115,7 +114,7 @@ class TitlePreviewViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.numberOfLines = 9
         label.text = "This is the best movie ever to watch as a kid"
         return label
     }()
@@ -152,7 +151,7 @@ class TitlePreviewViewController: UIViewController {
         
         
         
-        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, moviePosterView, titleMediaType, userScoreCirle]
+        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton, moviePosterView, titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
@@ -173,8 +172,24 @@ class TitlePreviewViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
     }
+    
+    @objc func addDownloadClicked() {
+        
+        guard let viewModel = viewModel else {return}
+        
+        DataPersistenceManager.shared.downloadTitleWith(model: viewModel) { result in
+            switch result {
+            case .success():
+                print("Download to Database")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
     
     func setupScrollView(){
             scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -254,11 +269,21 @@ class TitlePreviewViewController: UIViewController {
         
         
         let favoriteButtonConstraints = [
-            favoriteButton.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 10),
-            favoriteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            favoriteButton.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 15),
+            favoriteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
             favoriteButton.widthAnchor.constraint(equalToConstant: 25),
             favoriteButton.heightAnchor.constraint(equalToConstant: 25)
         ]
+        
+        let downloadButtonConstraints = [
+            downloadButton.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 15),
+            downloadButton.leadingAnchor.constraint(equalTo: favoriteButton.trailingAnchor, constant: 20),
+            downloadButton.widthAnchor.constraint(equalToConstant: 25),
+            downloadButton.heightAnchor.constraint(equalToConstant: 25)
+        
+        ]
+        
+        
         
         
         NSLayoutConstraint.activate(webViewConstraints)
@@ -269,6 +294,7 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(overViewLabelConstraints)
         
         NSLayoutConstraint.activate(favoriteButtonConstraints)
+        NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(movieMediaTypeConstraints)
         
     }

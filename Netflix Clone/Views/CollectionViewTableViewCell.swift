@@ -104,9 +104,6 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
             return
         }
         
-//        title.media_type
-        
-        
         APICaller.shared.getMovietoYoutube(with: titleName + " trailer") { [weak self] result in
             switch result {
             
