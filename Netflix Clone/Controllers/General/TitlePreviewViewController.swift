@@ -17,13 +17,21 @@ class TitlePreviewViewController: UIViewController {
     
     var viewModel : TitlePreviewViewModel?
     
+    
+    let favoriteButtonImage = UIImage(systemName: "heart")
+    
+    
     private lazy var favoriteButton : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        button.setImage(favoriteButtonImage, for: .normal)
         button.tintColor = .lightGray
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
+        
+        
+        
+        
         
 //        button.target(forAction: #selector(addFavoriteClicked), withSender: nil)
         return button
@@ -97,14 +105,14 @@ class TitlePreviewViewController: UIViewController {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.text = "Overview"
         return label
     }()
     
     private let overviewLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "This is the best movie ever to watch as a kid"
@@ -142,7 +150,8 @@ class TitlePreviewViewController: UIViewController {
         scrollView.frame = view.bounds
         
         
-        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, moviePosterView, titleMediaType, userScoreCirle]
+        
+        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, moviePosterView, titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
@@ -215,23 +224,23 @@ class TitlePreviewViewController: UIViewController {
         
         let moviePosterConstraints = [
             moviePosterView.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 10),
-            moviePosterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            moviePosterView.heightAnchor.constraint(equalToConstant: 140),
-            moviePosterView.widthAnchor.constraint(equalToConstant: 98)
+            moviePosterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            moviePosterView.heightAnchor.constraint(equalToConstant: 160),
+            moviePosterView.widthAnchor.constraint(equalToConstant: 112)
         ]
         
         
         
         let overViewTitleLabelConstraints = [
-            overviewTitleLabel.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor,constant: 20),
-            overviewTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 20)
+            overviewTitleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor,constant: 10),
+            overviewTitleLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10)
         
         
         ]
         
         let overViewLabelConstraints = [
-            overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 20),
-            overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 5),
+            overviewLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
             overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
         ]
@@ -244,12 +253,10 @@ class TitlePreviewViewController: UIViewController {
         
         
         let favoriteButtonConstraints = [
-            favoriteButton.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
-            favoriteButton.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10)
-        
+            favoriteButton.topAnchor.constraint(equalTo: moviePosterView.bottomAnchor, constant: 10),
+            favoriteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+
         ]
-        
-        
         
         
         NSLayoutConstraint.activate(webViewConstraints)
@@ -259,7 +266,7 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(overViewTitleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         
-//        NSLayoutConstraint.activate(favoriteButtonConstraints)
+        NSLayoutConstraint.activate(favoriteButtonConstraints)
         NSLayoutConstraint.activate(movieMediaTypeConstraints)
         
     }
@@ -300,6 +307,8 @@ class TitlePreviewViewController: UIViewController {
         
         guard let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(model.moviePoster)") else {return}
         moviePosterView.sd_setImage(with: posterURL)
+        
+        
         
         configureScoreLabel(with: model)
     }
