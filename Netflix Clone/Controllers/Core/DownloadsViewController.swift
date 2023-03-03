@@ -92,7 +92,7 @@ extension DownloadsViewController: UITableViewDelegate,UITableViewDataSource {
                  DispatchQueue.main.async {
                      let vc = TitlePreviewViewController()
 
-                     vc.configure(with: TitlePreviewViewModel(title: movieName ?? "", youtubeView: videoElement , titleOverview: movieOverview ?? "" , moviePoster: moviePoster ?? "" , vote_average: movieRating, release_date: movieDate ?? "", media_type: movieResults.media_type ?? "" ))
+                     vc.configure(with: TitlePreviewViewModel(id: Int(movieResults.id), title: movieName ?? "", youtubeView: videoElement , titleOverview: movieOverview ?? "" , moviePoster: moviePoster ?? "" , vote_average: movieRating, release_date: movieDate ?? "", media_type: movieResults.media_type ?? "" ))
                      self?.navigationController?.pushViewController(vc, animated: true)
                  }
              case .failure(let error):

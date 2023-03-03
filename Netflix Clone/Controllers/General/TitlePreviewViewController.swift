@@ -19,6 +19,8 @@ class TitlePreviewViewController: UIViewController {
     
     var viewModel : TitlePreviewViewModel?
     
+    private var casts : [Cast] = [Cast]()
+    
     private lazy var favoriteButton : UIButton = {
         let button = ButtonSembols(symbol: "heart")
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -136,10 +138,7 @@ class TitlePreviewViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 140, height: 200)
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .secondarySystemBackground
         return collectionView
@@ -170,7 +169,27 @@ class TitlePreviewViewController: UIViewController {
         contentView.addSubview(collectionView)
         
         setupCollectionView()
+        fetchCast()
         
+    }
+    
+    private func fetchCast() {
+        
+        APICaller.shared.getMovieCasts { results in
+            
+            switch results {
+            case .success(let cast):
+                self.casts = cast
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    print(cast)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
+       
         
     }
     
@@ -181,7 +200,7 @@ class TitlePreviewViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
+        collectionView.register(CastCell.self, forCellWithReuseIdentifier: CastCell.identifier)
         
     }
     
@@ -308,17 +327,17 @@ class TitlePreviewViewController: UIViewController {
             castTitleLabel.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 10),
             castTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             castTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            castTitleLabel.heightAnchor.constraint(equalToConstant: 30)
+            castTitleLabel.heightAnchor.constraint(equalToConstant: 28)
         
         
         ]
         
         let collectionViewConstraints = [
-            collectionView.topAnchor.constraint(equalTo: castTitleLabel.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: castTitleLabel.bottomAnchor, constant: -5),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 210)
+            collectionView.heightAnchor.constraint(equalToConstant: 240)
         ]
         
         
@@ -350,9 +369,9 @@ class TitlePreviewViewController: UIViewController {
         
         self.viewModel = model
         
+        
+        
         title = model.title
-        
-        
         
         let upperMediaType = model.media_type.uppercased()
         
@@ -428,7 +447,9 @@ extension TitlePreviewViewController: UICollectionViewDelegate, UICollectionView
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCell.identifier, for: indexPath) as! CastCell
+        
+        
         
         return cell
     }

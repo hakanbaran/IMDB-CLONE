@@ -10,14 +10,14 @@ import Foundation
 struct Constants {
     static let APIKey = "key=3eb740bc8fc93686e023441eb0718ab1"
     static let baseURL = "https://api.themoviedb.org"
-    static let youtubeAPIKey = "key=AIzaSyCSz4xq9hqDGgnaKDdUDtR970_jh6P08j8"
+    static let youtubeAPIKey = "key=AIzaSyBjnlcm0Fi1XWxFP5wNOaANuZlTf-E-6ro"
     static let youtubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
-// https://api.themoviedb.org/3 + endpoint.rawValue + APIConstants.apiKey + "&page=\(APIConstants.page)
 
 enum APIError: Error {
     case failedTogetData
+    case failedToCasts
 }
 
 class APICaller {
@@ -160,4 +160,29 @@ class APICaller {
         }
         task.resume()
     }
+    
+    
+    
+    func getMovieCasts(completion: @escaping (Result<[Cast], Error>) -> ()) {
+        
+        
+        guard let url = URL(string: "\(Constants.baseURL)/3/movie/550988/credits?api_\(Constants.APIKey)") else {return}
+        
+
+        
+        let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
+            guard let data = data, error == nil else {return}
+            do {
+                let result = try JSONDecoder().decode(CastModel.self, from: data)
+                completion(.success(result.cast!))
+//                print(result)
+                
+            } catch {
+                completion(.failure(APIError.failedToCasts))
+            }
+        }
+        task.resume()
+         
+    }
+    
 }

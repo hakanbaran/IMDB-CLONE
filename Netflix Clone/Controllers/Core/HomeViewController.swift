@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
         configureHeroHeaderView()
         
         homeFeedTable.separatorStyle = .none
-                
+              
     }
     
     private func configureHeroHeaderView() {

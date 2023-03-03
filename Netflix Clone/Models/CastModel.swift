@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct CastModel {
+struct CastModel: Codable {
     let id: Int?
     let cast: [Cast]?
 }
 
-struct Cast {
+struct Cast: Codable {
     let name: String?
     let profilePath: String?
     let character: String?
