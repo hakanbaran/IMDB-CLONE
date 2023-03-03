@@ -14,6 +14,6 @@ struct CastModel: Codable {
 
 struct Cast: Codable {
     let name: String?
-    let profilePath: String?
+    let profile_path: String?
     let character: String?
 }

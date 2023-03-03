@@ -163,12 +163,11 @@ class APICaller {
     
     
     
-    func getMovieCasts(completion: @escaping (Result<[Cast], Error>) -> ()) {
+    func getMovieCasts(with query: Int, with mediaType: String, completion: @escaping (Result<[Cast], Error>) -> ()) {
         
+//        guard let query = query.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {return}
         
-        guard let url = URL(string: "\(Constants.baseURL)/3/movie/550988/credits?api_\(Constants.APIKey)") else {return}
-        
-
+        guard let url = URL(string: "\(Constants.baseURL)/3/\(mediaType)/\(query)/credits?api_\(Constants.APIKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: URLRequest.init(url: url)) { data, response, error in
             guard let data = data, error == nil else {return}

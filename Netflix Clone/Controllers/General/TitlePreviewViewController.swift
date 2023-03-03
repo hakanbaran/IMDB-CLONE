@@ -164,34 +164,15 @@ class TitlePreviewViewController: UIViewController {
         
         configureConstraints()
         setupScrollView()
-//        setupCastView()
         
         contentView.addSubview(collectionView)
         
         setupCollectionView()
-        fetchCast()
+
         
     }
     
-    private func fetchCast() {
-        
-        APICaller.shared.getMovieCasts { results in
-            
-            switch results {
-            case .success(let cast):
-                self.casts = cast
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    print(cast)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-        }
-       
-        
-    }
+
     
     private func setupCollectionView() {
         
@@ -370,7 +351,6 @@ class TitlePreviewViewController: UIViewController {
         self.viewModel = model
         
         
-        
         title = model.title
         
         let upperMediaType = model.media_type.uppercased()
@@ -401,6 +381,21 @@ class TitlePreviewViewController: UIViewController {
         
         guard let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(model.moviePoster)") else {return}
         moviePosterView.sd_setImage(with: posterURL)
+        
+        APICaller.shared.getMovieCasts(with: model.id, with: model.media_type) { results in
+            
+            switch results {
+            case .success(let cast):
+                self.casts = cast
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
         
         
         
@@ -442,13 +437,21 @@ class TitlePreviewViewController: UIViewController {
 extension TitlePreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return casts.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCell.identifier, for: indexPath) as! CastCell
         
+        let cast = casts[indexPath.item]
+        
+        cell.castName.text = cast.name
+        
+        
+        let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(cast.profile_path ?? "")")
+
+        cell.castImage.sd_setImage(with: posterURL)
         
         
         return cell

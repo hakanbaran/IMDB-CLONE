@@ -110,6 +110,7 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
             case .success(let videoElement):
                 
                 let title = self?.titles[indexPath.row]
+                
                 guard let titleOverview = title?.overview else {
                     return
                 }

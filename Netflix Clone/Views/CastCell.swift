@@ -12,7 +12,7 @@ class CastCell: UICollectionViewCell {
     
     static let identifier = "CastCell"
     
-    private let castImage : UIImageView = {
+    public let castImage : UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -24,7 +24,7 @@ class CastCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let castName : UILabel = {
+    public let castName : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -74,7 +74,7 @@ class CastCell: UICollectionViewCell {
     
     public func configure(with model : Cast) {
         
-        guard let photo = model.profilePath else {return}
+        guard let photo = model.profile_path else {return}
         
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(photo)") else {return}
         castImage.sd_setImage(with: url)
