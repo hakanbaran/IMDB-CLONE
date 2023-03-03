@@ -117,12 +117,16 @@ class TitlePreviewViewController: UIViewController {
     
     
     
-    private let denemeLabel: UILabel = {
+    private let castTitleLabel: UILabel = {
         
         let label = UILabel()
+        label.backgroundColor = .secondarySystemBackground
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 36, weight: .bold)
-        label.text = "Test"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.text = "   Top Casts"
+//        label.textAlignment = .center
+//        label.clipsToBounds = true
+//        label.layer.cornerRadius = 5
         return label
     }()
     
@@ -137,7 +141,7 @@ class TitlePreviewViewController: UIViewController {
 //        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+        collectionView.backgroundColor = .secondarySystemBackground
         return collectionView
         
     }()
@@ -152,7 +156,7 @@ class TitlePreviewViewController: UIViewController {
         
         scrollView.frame = view.bounds
         
-        let views = [titleLabel, dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton , moviePosterView,collectionView , titleMediaType, userScoreCirle]
+        let views = [titleLabel, dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton , moviePosterView,castTitleLabel, collectionView , titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
         userScoreCirle.addSubview(userScoreLabel)
         
@@ -163,7 +167,7 @@ class TitlePreviewViewController: UIViewController {
         setupScrollView()
 //        setupCastView()
         
-//        contentView.addSubview(collectionView)
+        contentView.addSubview(collectionView)
         
         setupCollectionView()
         
@@ -172,7 +176,7 @@ class TitlePreviewViewController: UIViewController {
     
     private func setupCollectionView() {
         
-        collectionView.backgroundColor = .yellow
+        
         collectionView.isScrollEnabled = true
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -223,10 +227,6 @@ class TitlePreviewViewController: UIViewController {
         castView.heightAnchor.constraint(equalToConstant: 210).isActive = true
         
         castView.backgroundColor = .cyan
-        
-        castView.addSubview(denemeLabel)
-        
-        denemeLabel.centerXAnchor.constraint(equalTo: castView.centerXAnchor).isActive = true
         
     }
     
@@ -304,16 +304,26 @@ class TitlePreviewViewController: UIViewController {
         
         ]
         
+        let castTitleConstraints = [
+            castTitleLabel.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 10),
+            castTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            castTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            castTitleLabel.heightAnchor.constraint(equalToConstant: 30)
+        
+        
+        ]
+        
         let collectionViewConstraints = [
-            collectionView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: castTitleLabel.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 200)
+            collectionView.heightAnchor.constraint(equalToConstant: 210)
         ]
         
-
-            
+        
+        
+        
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
@@ -325,7 +335,7 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(movieMediaTypeConstraints)
         
-        
+        NSLayoutConstraint.activate(castTitleConstraints)
         NSLayoutConstraint.activate(collectionViewConstraints)
         
         
