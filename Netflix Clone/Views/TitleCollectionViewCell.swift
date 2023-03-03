@@ -14,6 +14,8 @@ class TitleCollectionViewCell: UICollectionViewCell {
     
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
+        
+        imageView.image = UIImage(named: "duneWallpaper")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 15
         imageView.layer.borderWidth = 0.5

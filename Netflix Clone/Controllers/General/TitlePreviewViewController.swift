@@ -12,10 +12,15 @@ import SDWebImage
 
 class TitlePreviewViewController: UIViewController {
     
+    
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
+    let castView = UIView()
+    
     var viewModel : TitlePreviewViewModel?
+    
     
     private lazy var favoriteButton : UIButton = {
         let button = ButtonSembols(symbol: "heart")
@@ -149,15 +154,17 @@ class TitlePreviewViewController: UIViewController {
         
         scrollView.frame = view.bounds
         
-        
-        
-        let views = [titleLabel,dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton, moviePosterView, titleMediaType, userScoreCirle]
+        let views = [titleLabel, dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton, moviePosterView, titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
 
         userScoreCirle.addSubview(userScoreLabel)
         
         configureConstraints()
         setupScrollView()
+        
+        setupCastView()
+        
+        
     }
     
     @objc func addFavoriteClicked() {
@@ -208,6 +215,26 @@ class TitlePreviewViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         }
     
+    func setupCastView() {
+            
+        castView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(castView)
+        
+        castView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20).isActive = true
+        
+        castView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        castView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        castView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        
+        castView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        castView.heightAnchor.constraint(equalToConstant: 210).isActive = true
+        
+        
+        
+        castView.backgroundColor = .cyan
+    }
+    
 
     func configureConstraints() {
         
@@ -257,8 +284,7 @@ class TitlePreviewViewController: UIViewController {
         let overViewLabelConstraints = [
             overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 5),
             overviewLabel.leadingAnchor.constraint(equalTo: moviePosterView.trailingAnchor, constant: 10),
-            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
+            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         
         
@@ -283,9 +309,15 @@ class TitlePreviewViewController: UIViewController {
         
         ]
         
-        
-        
-        
+//        let castViewConstraints = [
+//
+//            castView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20),
+//            castView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            castView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//
+//
+//        ]
+            
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
@@ -296,6 +328,10 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(favoriteButtonConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(movieMediaTypeConstraints)
+        
+//        NSLayoutConstraint.activate(castViewConstraints)
+        
+        
         
     }
     
@@ -372,3 +408,11 @@ class TitlePreviewViewController: UIViewController {
         userScoreCirle.layer.addSublayer(circleShape)
     }
 }
+
+
+
+
+
+
+
+

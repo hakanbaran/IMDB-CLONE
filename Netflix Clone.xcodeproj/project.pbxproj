@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D40EDEAF29B0C262003847E0 /* ButtonSembols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */; };
+		D40EDEB129B0DB12003847E0 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEB029B0DB12003847E0 /* CastCell.swift */; };
+		D40EDEB329B0DCF1003847E0 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEB229B0DCF1003847E0 /* CastModel.swift */; };
 		D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE729432C1A00293EDB /* AppDelegate.swift */; };
 		D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE929432C1A00293EDB /* SceneDelegate.swift */; };
 		D420CDEC29432C1A00293EDB /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDEB29432C1A00293EDB /* MainTabBarViewController.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSembols.swift; sourceTree = "<group>"; };
+		D40EDEB029B0DB12003847E0 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
+		D40EDEB229B0DCF1003847E0 /* CastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastModel.swift; sourceTree = "<group>"; };
 		D420CDE429432C1A00293EDB /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D420CDE729432C1A00293EDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D420CDE929432C1A00293EDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 			children = (
 				D420CE59294CAB0A00293EDB /* Title.swift */,
 				D48BF7FD295B90A600125E7E /* YoutubeSearchResponse.swift */,
+				D40EDEB229B0DCF1003847E0 /* CastModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				D420CE552948FD9000293EDB /* HeroHeaderUIView.swift */,
 				D48BF6F529524BE500125E7E /* TitleCollectionViewCell.swift */,
 				D48BF7A32957FBD500125E7E /* TitleTableViewCell.swift */,
+				D40EDEB029B0DB12003847E0 /* CastCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,7 +294,9 @@
 				D420CE562948FD9000293EDB /* HeroHeaderUIView.swift in Sources */,
 				D420CE0A294330DE00293EDB /* DownloadsViewController.swift in Sources */,
 				D40EDEAF29B0C262003847E0 /* ButtonSembols.swift in Sources */,
+				D40EDEB329B0DCF1003847E0 /* CastModel.swift in Sources */,
 				D48BF7FE295B90A600125E7E /* YoutubeSearchResponse.swift in Sources */,
+				D40EDEB129B0DB12003847E0 /* CastCell.swift in Sources */,
 				D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */,
 				D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */,
 				D420CE06294330C200293EDB /* UpcomingViewController.swift in Sources */,
