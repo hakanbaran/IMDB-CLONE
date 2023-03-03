@@ -12,8 +12,6 @@ import SDWebImage
 
 class TitlePreviewViewController: UIViewController {
     
-    
-    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -21,18 +19,13 @@ class TitlePreviewViewController: UIViewController {
     
     var viewModel : TitlePreviewViewModel?
     
-    
     private lazy var favoriteButton : UIButton = {
         let button = ButtonSembols(symbol: "heart")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .lightGray
         button.isUserInteractionEnabled = true
-//        button.addTarget(self, action: #selector(addFavoriteClicked), for: .touchUpInside)
         return button
-        
     }()
-    
-    
     private lazy var downloadButton : UIButton = {
         let button = ButtonSembols(symbol: "bookmark")
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +33,6 @@ class TitlePreviewViewController: UIViewController {
         button.isUserInteractionEnabled = true
 //        button.addTarget(self, action: #selector(addDownloadClicked), for: .touchUpInside)
         return button
-
     }()
     
     private let titleMediaType: UILabel = {
@@ -48,22 +40,16 @@ class TitlePreviewViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Test"
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.textColor = .lightGray
-        
         label.clipsToBounds = true
         label.layer.cornerRadius = 5
         label.layer.borderColor = UIColor.lightGray.cgColor
         label.layer.borderWidth = 0.5
-        
         return label
     }()
-    
-    
     private let titleLabel : UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Harry potter"
@@ -71,29 +57,20 @@ class TitlePreviewViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    
     private let dateLabel : UILabel = {
-        
         let label = UILabel()
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hayri Pıtır"
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.textColor = .lightGray
-        
         label.clipsToBounds = true
         label.layer.cornerRadius = 5
         label.layer.borderColor = UIColor.lightGray.cgColor
         label.layer.borderWidth = 0.5
-        
         return label
-        
-        
     }()
-    
     private let moviePosterView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -105,16 +82,13 @@ class TitlePreviewViewController: UIViewController {
         imageView.image = UIImage(named: "duneWallpaper")
         return imageView
     }()
-    
     private let overviewTitleLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.text = "Overview"
         return label
     }()
-    
     private let overviewLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -123,28 +97,52 @@ class TitlePreviewViewController: UIViewController {
         label.text = "This is the best movie ever to watch as a kid"
         return label
     }()
-    
     private let webView: WKWebView = {
        let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
-    
     private let userScoreLabel : UILabel = {
-        
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
         return label
     }()
-
     private let userScoreCirle  = {
-        
         let roundView = UIView(frame: CGRectMake(320, 12, 50, 50))
         roundView.backgroundColor    = UIColor.systemBackground
         roundView.layer.cornerRadius = roundView.frame.width / 2
         return roundView
     }()
+    
+    
+    
+    private let denemeLabel: UILabel = {
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 36, weight: .bold)
+        label.text = "Test"
+        return label
+    }()
+    
+    
+    private let collectionView : UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 140, height: 200)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+        
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,49 +152,44 @@ class TitlePreviewViewController: UIViewController {
         
         scrollView.frame = view.bounds
         
-        let views = [titleLabel, dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton, moviePosterView, titleMediaType, userScoreCirle]
+        let views = [titleLabel, dateLabel, overviewLabel, overviewTitleLabel, webView, favoriteButton, downloadButton , moviePosterView,collectionView , titleMediaType, userScoreCirle]
         views.forEach { contentView.addSubview($0) }
-
         userScoreCirle.addSubview(userScoreLabel)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         
         configureConstraints()
         setupScrollView()
+//        setupCastView()
         
-        setupCastView()
+//        contentView.addSubview(collectionView)
+        
+        setupCollectionView()
         
         
     }
     
+    private func setupCollectionView() {
+        
+        collectionView.backgroundColor = .yellow
+        collectionView.isScrollEnabled = true
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
+        
+    }
+    
+    
+    
     @objc func addFavoriteClicked() {
-        
-        guard let viewModel = viewModel else {return}
-        
-        DataPersistenceManager.shared.downloadTitleWith(model: viewModel) { result in
-            switch result {
-            case .success():
-                print("Download to Database")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+       
     }
     
     @objc func addDownloadClicked() {
         
-        guard let viewModel = viewModel else {return}
-        
-        DataPersistenceManager.shared.downloadTitleWith(model: viewModel) { result in
-            switch result {
-            case .success():
-                print("Download to Database")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
     }
-    
-    
-    
     
     func setupScrollView(){
             scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,10 +211,9 @@ class TitlePreviewViewController: UIViewController {
     func setupCastView() {
             
         castView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(castView)
+        contentView.addSubview(castView)
         
         castView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20).isActive = true
-        
         castView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         castView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -230,9 +222,12 @@ class TitlePreviewViewController: UIViewController {
         castView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         castView.heightAnchor.constraint(equalToConstant: 210).isActive = true
         
-        
-        
         castView.backgroundColor = .cyan
+        
+        castView.addSubview(denemeLabel)
+        
+        denemeLabel.centerXAnchor.constraint(equalTo: castView.centerXAnchor).isActive = true
+        
     }
     
 
@@ -309,14 +304,15 @@ class TitlePreviewViewController: UIViewController {
         
         ]
         
-//        let castViewConstraints = [
-//
-//            castView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20),
-//            castView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            castView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//
-//
-//        ]
+        let collectionViewConstraints = [
+            collectionView.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 200)
+        ]
+        
+
             
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(moviePosterConstraints)
@@ -328,6 +324,11 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(favoriteButtonConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraints)
         NSLayoutConstraint.activate(movieMediaTypeConstraints)
+        
+        
+        NSLayoutConstraint.activate(collectionViewConstraints)
+        
+        
         
 //        NSLayoutConstraint.activate(castViewConstraints)
         
@@ -409,10 +410,16 @@ class TitlePreviewViewController: UIViewController {
     }
 }
 
-
-
-
-
-
-
-
+extension TitlePreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath)
+        
+        return cell
+    }
+}

@@ -11,7 +11,7 @@ class CastCell: UICollectionViewCell {
     
     static let identifier = "CastCell"
     
-    let castImage : UIImageView = {
+    var castImage : UIImageView = {
         
         let imageView = UIImageView()
         
