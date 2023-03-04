@@ -168,31 +168,20 @@ class TitlePreviewViewController: UIViewController {
         contentView.addSubview(collectionView)
         
         setupCollectionView()
-
-        
     }
     
-
-    
     private func setupCollectionView() {
-        
         
         collectionView.isScrollEnabled = true
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         collectionView.register(CastCell.self, forCellWithReuseIdentifier: CastCell.identifier)
-        
     }
     
-    
-    
     @objc func addFavoriteClicked() {
-       
     }
     
     @objc func addDownloadClicked() {
-        
     }
     
     func setupScrollView(){
@@ -349,8 +338,6 @@ class TitlePreviewViewController: UIViewController {
     func configure(with model: TitlePreviewViewModel) {
         
         self.viewModel = model
-        
-        
         title = model.title
         
         let upperMediaType = model.media_type.uppercased()
@@ -364,15 +351,11 @@ class TitlePreviewViewController: UIViewController {
         
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview
-        
-        
-        
         let date = model.release_date
         let index = date.firstIndex(of: "-") ?? date.endIndex
         let year = date[..<index]
         
         dateLabel.text = String(year)
-        
         
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youtubeView.id.videoId)") else {
             return
@@ -383,22 +366,16 @@ class TitlePreviewViewController: UIViewController {
         moviePosterView.sd_setImage(with: posterURL)
         
         APICaller.shared.getMovieCasts(with: model.id, with: model.media_type) { results in
-            
             switch results {
             case .success(let cast):
                 self.casts = cast
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            
         }
-        
-        
-        
         configureScoreLabel(with: model)
     }
     
@@ -440,15 +417,11 @@ extension TitlePreviewViewController: UICollectionViewDelegate, UICollectionView
         return casts.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCell.identifier, for: indexPath) as! CastCell
         
         let cast = casts[indexPath.item]
-        
         cell.castName.text = cast.name
-        
-        
         let posterURL = URL(string: "https://image.tmdb.org/t/p/w500/\(cast.profile_path ?? "")")
 
         cell.castImage.sd_setImage(with: posterURL)

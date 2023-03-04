@@ -173,7 +173,10 @@ class APICaller {
             guard let data = data, error == nil else {return}
             do {
                 let result = try JSONDecoder().decode(CastModel.self, from: data)
-                completion(.success(result.cast!))
+                
+//                guard let result = result else {return}
+                
+                completion(.success(result.cast ?? []))
 //                print(result)
                 
             } catch {
