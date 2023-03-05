@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import ImageSlideshow
 
 class HeroHeaderUIView: UIView {
-    
-    
     
     private let downloadButton : UIButton = {
         
@@ -19,10 +18,7 @@ class HeroHeaderUIView: UIView {
         button.layer.borderWidth = 0.5
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 5
-        
         return button
-        
-        
     }()
     
     private let playButton : UIButton = {
@@ -41,7 +37,7 @@ class HeroHeaderUIView: UIView {
         
         let imageView = UIImageView()
         imageView.image = UIImage(named: "duneWallpaper")
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
@@ -93,8 +89,9 @@ class HeroHeaderUIView: UIView {
     }
     public func configure(with model: TitleViewModel) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}
-        
+
         heroImageView.sd_setImage(with: url)
+         
     }
     
     

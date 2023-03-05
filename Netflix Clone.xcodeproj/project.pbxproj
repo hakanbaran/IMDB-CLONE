@@ -10,6 +10,7 @@
 		D40EDEAF29B0C262003847E0 /* ButtonSembols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEAE29B0C262003847E0 /* ButtonSembols.swift */; };
 		D40EDEB129B0DB12003847E0 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEB029B0DB12003847E0 /* CastCell.swift */; };
 		D40EDEB329B0DCF1003847E0 /* CastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EDEB229B0DCF1003847E0 /* CastModel.swift */; };
+		D40EDEB829B40583003847E0 /* ImageSlideshow in Frameworks */ = {isa = PBXBuildFile; productRef = D40EDEB729B40583003847E0 /* ImageSlideshow */; };
 		D420CDE829432C1A00293EDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE729432C1A00293EDB /* AppDelegate.swift */; };
 		D420CDEA29432C1A00293EDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDE929432C1A00293EDB /* SceneDelegate.swift */; };
 		D420CDEC29432C1A00293EDB /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420CDEB29432C1A00293EDB /* MainTabBarViewController.swift */; };
@@ -75,6 +76,7 @@
 				D4606335299C3C120016E632 /* SnapKit in Frameworks */,
 				D48BF6F3294E576E00125E7E /* SDWebImageMapKit in Frameworks */,
 				D48BF6F1294E576E00125E7E /* SDWebImage in Frameworks */,
+				D40EDEB829B40583003847E0 /* ImageSlideshow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +224,7 @@
 				D48BF6F0294E576E00125E7E /* SDWebImage */,
 				D48BF6F2294E576E00125E7E /* SDWebImageMapKit */,
 				D4606334299C3C120016E632 /* SnapKit */,
+				D40EDEB729B40583003847E0 /* ImageSlideshow */,
 			);
 			productName = "Netflix Clone";
 			productReference = D420CDE429432C1A00293EDB /* Netflix Clone.app */;
@@ -254,6 +257,7 @@
 			packageReferences = (
 				D48BF6EF294E576E00125E7E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D40EDEB629B40583003847E0 /* XCRemoteSwiftPackageReference "ImageSlideshow" */,
 			);
 			productRefGroup = D420CDE529432C1A00293EDB /* Products */;
 			projectDirPath = "";
@@ -515,6 +519,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D40EDEB629B40583003847E0 /* XCRemoteSwiftPackageReference "ImageSlideshow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zvonicek/ImageSlideshow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -534,6 +546,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D40EDEB729B40583003847E0 /* ImageSlideshow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D40EDEB629B40583003847E0 /* XCRemoteSwiftPackageReference "ImageSlideshow" */;
+			productName = ImageSlideshow;
+		};
 		D4606334299C3C120016E632 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4606333299C3C120016E632 /* XCRemoteSwiftPackageReference "SnapKit" */;

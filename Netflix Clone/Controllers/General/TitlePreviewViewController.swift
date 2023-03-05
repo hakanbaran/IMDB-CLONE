@@ -381,13 +381,19 @@ class TitlePreviewViewController: UIViewController {
     
     private func configureScoreLabel(with model: TitlePreviewViewModel) {
         
-        let score = Int(model.vote_average * 10)
+        let score = model.vote_average * 10
         let percentageScore = model.vote_average / 10
 //        userScoreLabel.text = "\(score)%"
         
         let scoreResult = Double(score / 10)
         
-        userScoreLabel.text = "\(scoreResult)/10"
+        
+        let roundScore = Double(round(10 * scoreResult) / 10)
+        
+       
+        
+        
+        userScoreLabel.text = "\(roundScore)/10"
         
         configureCircleStroke(with: percentageScore)
     }
