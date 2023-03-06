@@ -326,20 +326,13 @@ class TitlePreviewViewController: UIViewController {
         
         NSLayoutConstraint.activate(castTitleConstraints)
         NSLayoutConstraint.activate(collectionViewConstraints)
-        
-        
-        
 //        NSLayoutConstraint.activate(castViewConstraints)
-        
-        
-        
     }
     
     func configure(with model: TitlePreviewViewModel) {
         
         self.viewModel = model
         title = model.title
-        
         let upperMediaType = model.media_type.uppercased()
         
         if upperMediaType == "TV" {
@@ -348,6 +341,8 @@ class TitlePreviewViewController: UIViewController {
             titleMediaType.text = upperMediaType
             
         }
+        
+        print("Hakan" + model.media_type)
         
         titleLabel.text = model.title
         overviewLabel.text = model.titleOverview

@@ -111,6 +111,8 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
                 
                 let title = self?.titles[indexPath.row]
                 
+                
+                
                 guard let titleOverview = title?.overview else {
                     return
                 }
