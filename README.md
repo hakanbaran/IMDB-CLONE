@@ -1,7 +1,12 @@
 # IMDB Clone;
 - It is an application where you can get information about movies and TV Series and watch their trailers. Powered by TMDB API. Build with UIKit...
 
-### Technologies used in the development of the application:
+
+## Application Screenshots
+
+![IMDB Clone Readme](https://user-images.githubusercontent.com/104249732/223873409-bbab365a-ad19-438b-99c0-6465846f0d57.png)
+
+## Technologies used in the development of the application:
 - UIKit
 - MVVM
 - TabBar
@@ -14,11 +19,6 @@
 - TMDB API
 - Youtube API
 
-### Application Screenshots
-
-
-
-![IMDB Clone Readme](https://user-images.githubusercontent.com/104249732/223873409-bbab365a-ad19-438b-99c0-6465846f0d57.png)
 
 
 
